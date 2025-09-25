@@ -13,3 +13,4 @@ public interface AnnonceRepository extends JpaRepository<Annence,Long>{
 	boolean existsByTitleAndCategorieAndIdNot(String titre, Categorie categrie,Long id);
 }
  
+  

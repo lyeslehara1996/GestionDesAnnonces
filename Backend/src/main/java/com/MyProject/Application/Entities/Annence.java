@@ -7,8 +7,7 @@ import java.util.Date;
 import com.MyProject.Application.Enum.Categorie;
 
 import jakarta.persistence.Id;
-
-
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,9 +22,11 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Annence {
@@ -50,9 +51,10 @@ public class Annence {
 	private Categorie categorie;
 	
 
-	private LocalDateTime dateCreation;
+	private LocalDateTime dateCreation= LocalDateTime.now();
 	
 	private LocalDateTime dateModification ;
+	
 	@NotBlank(message = "l'auteur est obligatoire")
 	private String auteur ;
 	@Email
@@ -62,7 +64,10 @@ public class Annence {
 	
 	private boolean active =true ;
 
-	
+	@PreUpdate
+	public void setDateModification() {
+		this.dateModification = LocalDateTime.now();
+	}
 
 
 	

@@ -1,14 +1,22 @@
 package com.MyProject.Application.Services.ServicesImp;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.MyProject.Application.Entities.Annence;
+import com.MyProject.Application.Enum.Categorie;
 import com.MyProject.Application.Repository.AnnonceRepository;
 import com.MyProject.Application.Services.AnnonceService;
+import com.MyProject.Application.Specification.AnnonceSpecification;
 
 import jakarta.transaction.Transactional;
 
@@ -74,5 +82,25 @@ public class AnnonceServiceImpl implements AnnonceService{
 
 	    return annonceRepo.save(_annonce);
 	    }
+
+
+	@Override
+	public Page<Annence> recherche(BigDecimal prixMin, BigDecimal prixMax, String titre, List<Categorie> categories,
+			int page, int size, String sortField, String direction) {
+		// TODO Auto-generated method stub
+
+        Sort sort = Sort.by(direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC,
+                            (sortField != null) ? sortField : "dateCreation");
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Specification<Annence> spec = Specification
+                .where(AnnonceSpecification.hasPrixMin(prixMin))
+                .and(AnnonceSpecification.hasPrixMax(prixMax))
+                .and(AnnonceSpecification.hasTitre(titre))
+                .and(AnnonceSpecification.hasCategories(categories));
+
+        return annonceRepo.findAll(spec, pageable);
+	}
 
 }

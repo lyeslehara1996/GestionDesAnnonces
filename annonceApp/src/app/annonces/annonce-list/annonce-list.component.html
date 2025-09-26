@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Liste des annonces</h2>
+  <table mat-table [dataSource]="annonces" class="mat-elevation-z8">
+    <ng-container matColumnDef="titre">
+      <th mat-header-cell *matHeaderCellDef>Titre</th>
+      <td mat-cell *matCellDef="let annonces">{{ annonces.titre }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="categorie">
+      <th mat-header-cell *matHeaderCellDef>Catégorie</th>
+      <td mat-cell *matCellDef="let annonces">{{ annonces.categorie }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="prix">
+      <th mat-header-cell *matHeaderCellDef>Prix</th>
+      <td mat-cell *matCellDef="let annonces">
+        {{ annonces.prix | currency : "EUR" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="auteur">
+      <th mat-header-cell *matHeaderCellDef>Auteur</th>
+      <td mat-cell *matCellDef="let annonces">{{ annonces.auteur }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let annonces">
+        <button mat-button color="primary">Modifier</button>
+        <button mat-button color="warn" (click)="deleteAnnonce(annonces.id!)">
+          Supprimer
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

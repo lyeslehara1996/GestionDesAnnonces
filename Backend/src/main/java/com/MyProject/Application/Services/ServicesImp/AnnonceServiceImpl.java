@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.MyProject.Application.Entities.Annence;
 import com.MyProject.Application.Repository.AnnonceRepository;
@@ -11,6 +12,8 @@ import com.MyProject.Application.Services.AnnonceService;
 
 import jakarta.transaction.Transactional;
 
+@Service   
+@Transactional
 public class AnnonceServiceImpl implements AnnonceService{
 
 	@Autowired
@@ -52,21 +55,24 @@ public class AnnonceServiceImpl implements AnnonceService{
 
 
 	@Override
-	    public Annence updateAnnonce(Long id, Annence annonce) {
-	        Annence _annonce = annonceRepo.findById(id)
-	                .orElseThrow(() -> new IllegalArgumentException("Annonce introuvable"));
+	public Annence updateAnnonce(Long id, Annence annonce) {
+	    Annence _annonce = annonceRepo.findById(id)
+	            .orElseThrow(() -> new IllegalArgumentException("Annonce introuvable"));
 
-	        if (annonceRepo.existsByTitleAndCategorieAndIdNot(
-	                annonce.getTitle(), annonce.getCategorie(), id)) {
-	            throw new IllegalArgumentException("Un titre identique existe déjà dans cette catégorie");
-	        }
+	    if (annonceRepo.existsByTitleAndCategorieAndIdNot(
+	            annonce.getTitle(), annonce.getCategorie(), id)) {
+	        throw new IllegalArgumentException("Un titre identique existe déjà dans cette catégorie");
+	    }
 
-	        annonce.setId(_annonce.getId());
-	        annonce.setDescription(_annonce.getDescription());
-	        annonce.setAuteur(_annonce.getAuteur());
-	        annonce.setEmail(annonce.getEmail());
-	        annonce.setPrix(annonce.getPrix());
-	        return annonceRepo.save(annonce);
+	    _annonce.setTitle(annonce.getTitle());
+	    _annonce.setDescription(annonce.getDescription());
+	    _annonce.setAuteur(annonce.getAuteur());
+	    _annonce.setEmail(annonce.getEmail());
+	    _annonce.setPrix(annonce.getPrix());
+	    _annonce.setCategorie(annonce.getCategorie());
+	    _annonce.setTelephone(annonce.getTelephone());
+
+	    return annonceRepo.save(_annonce);
 	    }
 
 }

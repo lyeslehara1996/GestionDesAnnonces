@@ -1,6 +1,9 @@
 package com.MyProject.Application.Controllers;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +26,11 @@ import jakarta.validation.Valid;
 public class AnnonceController {
 
 	
-	private  AnnonceService Annonce_service;
+	private final AnnonceService Annonce_service ;
+	
+	public AnnonceController(AnnonceService annonceService) {
+        this.Annonce_service = annonceService;
+    }
 	
 	@GetMapping
 	public ResponseEntity<List <Annence> > getAllAnnonce(){
@@ -41,14 +48,15 @@ public class AnnonceController {
 	
 	@PostMapping
 	public ResponseEntity<Annence> createAnnence(@Valid @RequestBody Annence annonce) {
-		return ResponseEntity.ok(Annonce_service.saveAnnonce(annonce)) ;
+		  Annence savedAnnonce = Annonce_service.saveAnnonce(annonce);
+		    return new ResponseEntity<>(savedAnnonce, HttpStatus.CREATED);
 		
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity< Annence> updateAnnence(@PathVariable Long id,@Valid @RequestBody Annence annonce) {
 	
-		return ResponseEntity.ok(Annonce_service.updateAnnonce(id, annonce));
+		   return ResponseEntity.ok(Annonce_service.updateAnnonce(id, annonce));
 		
 	
 	}

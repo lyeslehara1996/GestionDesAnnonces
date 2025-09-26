@@ -33,7 +33,6 @@ public class AnnonceServiceTest {
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
 		annonce = new Annence();
-		annonce.setId(1L);
 		annonce.setTitle("Appartement à louer");
 		annonce.setPrix(BigDecimal.valueOf(500));
 		annonce.setCategorie(Categorie.IMMOBILIER);

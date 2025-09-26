@@ -1,4 +1,4 @@
-package com.MyProject.Application.ServiceTest.CrudTest;
+package com.MyProject.Application.ControllerTest;
 
 import java.math.BigDecimal;
 
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ControllerRepositoryTest {
+public class AnnonceControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -72,7 +72,7 @@ public class ControllerRepositoryTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(_annonce)))
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.titre").value("Maison à vendre"));
+            .andExpect(jsonPath("$.title").value("Maison à vendre"));
 	    }
 	 
 	 	@Test
@@ -83,7 +83,7 @@ public class ControllerRepositoryTest {
 	                        .contentType(MediaType.APPLICATION_JSON)
 	                        .content(objectMapper.writeValueAsString(annonce)))
 	                .andExpect(status().isOk())
-	                .andExpect(jsonPath("$.titre").value("Voiture2"));
+	                .andExpect(jsonPath("$.title").value("Voiture2"));
 	    }
 	 	
 	 	 @Test

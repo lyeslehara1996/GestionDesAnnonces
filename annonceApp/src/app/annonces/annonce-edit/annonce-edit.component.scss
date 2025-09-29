@@ -1,0 +1,10 @@
+.full-width {
+  width: 100%;
+  display: block; /* pour éviter inline-block */
+  margin-bottom: 16px; /* espace entre les champs */
+}
+
+form {
+  display: flex;
+  flex-direction: column; /* les champs s’empilent */
+}

@@ -1,0 +1,82 @@
+<ng-container mat-dialog-title>
+  <h1>Modifier une annonce</h1>
+</ng-container>
+
+<mat-dialog-content>
+    <div class="row">
+        
+    </div>
+  <mat-card>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+        <mat-label>Titre</mat-label>
+        <input matInput formControlName="titre" required />
+        <mat-error *ngIf="form.controls['titre'].hasError('required')">
+          Le titre est obligatoire
+        </mat-error>
+        <mat-error *ngIf="form.controls['titre'].hasError('minlength')">
+          Le titre doit contenir au moins 5 caractères
+        </mat-error>
+        <mat-error *ngIf="form.controls['titre'].hasError('maxlength')">
+          Le titre doit contenir au maximum 100 caractères
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Prix (€)</mat-label>
+        <input matInput type="number" formControlName="prix" required />
+        <mat-error *ngIf="form.controls['prix'].hasError('required')">
+          Le prix est obligatoire
+        </mat-error>
+        <mat-error *ngIf="form.controls['prix'].hasError('min')">
+          Le prix doit être positif
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Catégorie</mat-label>
+        <mat-select formControlName="categorie" required>
+          <mat-option *ngFor="let cat of categories" [value]="cat">
+            {{ cat }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['categorie'].hasError('required')">
+          La catégorie est obligatoire
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Auteur</mat-label>
+        <input matInput formControlName="auteur" required />
+        <mat-error *ngIf="form.controls['auteur'].hasError('required')">
+          Le nom de l'auteur est obligatoire
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        <mat-error *ngIf="form.controls['email'].hasError('email')">
+          Email invalide
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Téléphone</mat-label>
+        <input matInput formControlName="telephone" />
+      </mat-form-field>
+
+      <mat-dialog-actions align="end">
+  <button mat-raised-button color="primary"  type="submit" [disabled]="form.invalid">Sauvegarder</button>
+  <button mat-raised-button type="button" [mat-dialog-close]>Annuler</button>
+</mat-dialog-actions>
+    </form>
+  </mat-card>
+</mat-dialog-content>
+

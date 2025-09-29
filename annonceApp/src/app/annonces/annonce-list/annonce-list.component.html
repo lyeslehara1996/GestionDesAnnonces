@@ -1,9 +1,13 @@
 <div class="container">
-  <h2>Liste des annonces</h2>
-  <table mat-table [dataSource]="annonces" class="mat-elevation-z8">
+
+  <div>
+    <h2 >Liste des annonces</h2>
+
+  </div>
+  <table mat-table [dataSource]="annonces">
     <ng-container matColumnDef="titre">
-      <th mat-header-cell *matHeaderCellDef>Titre</th>
-      <td mat-cell *matCellDef="let annonces">{{ annonces.titre }}</td>
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let annonces">{{ annonces.title }}</td>
     </ng-container>
 
     <ng-container matColumnDef="categorie">
@@ -18,15 +22,29 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="auteur">
-      <th mat-header-cell *matHeaderCellDef>Auteur</th>
+       <ng-container matColumnDef="auteur">
+      <th mat-header-cell *matHeaderCellDef>auteur</th>
       <td mat-cell *matCellDef="let annonces">{{ annonces.auteur }}</td>
     </ng-container>
+     <ng-container matColumnDef="telephone">
+      <th mat-header-cell *matHeaderCellDef>telephone</th>
+      <td mat-cell *matCellDef="let annonces">{{ annonces.telephone }}</td>
+    </ng-container>
 
+      <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>email</th>
+      <td mat-cell *matCellDef="let annonces">{{ annonces.email }}</td>
+    </ng-container>
+
+
+ <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>description</th>
+      <td mat-cell *matCellDef="let annonces">{{ annonces.description }}</td>
+    </ng-container>
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let annonces">
-        <button mat-button color="primary">Modifier</button>
+        <button mat-button color="primary" (click)="openEditAnnonceForm(annonces)">Modifier</button>
         <button mat-button color="warn" (click)="deleteAnnonce(annonces.id!)">
           Supprimer
         </button>
@@ -36,4 +54,12 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
 </div>
+
+
+

@@ -1,0 +1,18 @@
+.full-width {
+  width: 50%;
+  display: block; /* pour éviter inline-block */
+  margin-bottom: 16px; /* espace entre les champs */
+
+}
+
+form {
+    align-items: center;
+  display: flex;
+  flex-direction: column; /* les champs s’empilent */
+
+}
+
+button{
+    display: flex;
+    align-content: left;
+}

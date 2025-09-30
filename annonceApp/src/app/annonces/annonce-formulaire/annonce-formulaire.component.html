@@ -1,18 +1,17 @@
 <mat-card>
-  <h2>{{ annonceId ? "Modifier une annonce" : "Créer une annonce" }}</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
       <mat-label>Titre</mat-label>
-      <input matInput formControlName="titre" required />
-      <mat-error *ngIf="form.controls['titre'].hasError('required')">
-        Le titre est obligatoire
+      <input matInput formControlName="title" required />
+      <mat-error *ngIf="form.controls['title'].hasError('required')">
+        Le title est obligatoire
       </mat-error>
-      <mat-error *ngIf="form.controls['titre'].hasError('minlength')">
-        Le titre doit contenir au moins 5 caractères
+      <mat-error *ngIf="form.controls['title'].hasError('minlength')">
+        Le title doit contenir au moins 5 caractères
       </mat-error>
-      <mat-error *ngIf="form.controls['titre'].hasError('maxlength')">
-        Le titre doit contenir au maximum 100 caractères
+      <mat-error *ngIf="form.controls['title'].hasError('maxlength')">
+        Le title doit contenir au maximum 100 caractères
       </mat-error>
     </mat-form-field>
 
@@ -71,7 +70,7 @@
       type="submit"
       [disabled]="form.invalid"
     >
-      {{ annonceId ? "Mettre à jour" : "Créer" }}
+      créer
     </button>
   </form>
 </mat-card>

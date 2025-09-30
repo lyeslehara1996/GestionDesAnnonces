@@ -37,30 +37,52 @@ public class AnnonceController {
     }
 	
 	@GetMapping
-	public ResponseEntity<List <Annence> > getAllAnnonce(){
-		return ResponseEntity.ok(Annonce_service.getAllAnnonce()) ;
+	public ResponseEntity<? > getAllAnnonce(){
+        try{
+
+            return new ResponseEntity<>(Annonce_service.getAllAnnonce(), HttpStatus.OK) ;
+        }catch(Exception e){
+
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
 	}
 	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Annence> getAnnonceById(@PathVariable Long id){
-		return ResponseEntity.ok(Annonce_service.findAnnonceByID(id));
+	public ResponseEntity<?> getAnnonceById(@PathVariable Long id){
+		try{
+            return new ResponseEntity<>(Annonce_service.findAnnonceByID(id), HttpStatus.OK) ;
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
 				
 	}
 	
 	
 	
 	@PostMapping
-	public ResponseEntity<Annence> createAnnence(@Valid @RequestBody Annence annonce) {
-		  Annence savedAnnonce = Annonce_service.saveAnnonce(annonce);
-		    return new ResponseEntity<>(savedAnnonce, HttpStatus.CREATED);
+	public ResponseEntity<?> createAnnence(@Valid @RequestBody Annence annonce) {
+
+        try{
+            Annence savedAnnonce = Annonce_service.saveAnnonce(annonce);
+            return new ResponseEntity<>(savedAnnonce, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+
 		
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity< Annence> updateAnnence(@PathVariable Long id,@Valid @RequestBody Annence annonce) {
-	
-		   return ResponseEntity.ok(Annonce_service.updateAnnonce(id, annonce));
+	public ResponseEntity<?> updateAnnence(@PathVariable Long id,@Valid @RequestBody Annence annonce) {
+	try{
+        return new ResponseEntity<>(Annonce_service.updateAnnonce(id, annonce),HttpStatus.OK);
+    }catch (Exception e){
+
+        return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+    }
+
 		
 	
 	}

@@ -22,7 +22,7 @@ export class AnnonceFormulaireComponent implements OnInit {
   ngOnInit(): void {
 
  this.form = this.fb.group({
-      titre: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       description: [''],
       prix: [null, [Validators.required, Validators.min(1)]],
       categorie: ['', Validators.required],
@@ -31,14 +31,7 @@ export class AnnonceFormulaireComponent implements OnInit {
       telephone: [''],
       active: [true]
     });
-  
-    // Vérifier si on est en mode édition
-    this.annonceId = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.annonceId) {
-      this.annonceService.getById(this.annonceId).subscribe(annonce => {
-        this.form.patchValue(annonce);
-      });
-    }
+
   }
 
   onSubmit(): void {
@@ -47,17 +40,12 @@ export class AnnonceFormulaireComponent implements OnInit {
     }
 
     const annonce: Annonce = this.form.value;
-
-    if (this.annonceId) {
-      this.annonceService.update(this.annonceId, annonce).subscribe(() => {
-        alert('Annonce mise à jour avec succès');
-        this.router.navigate(['/']);
-      });
-    } else {
+console.log(annonce);
+  
       this.annonceService.create(annonce).subscribe(() => {
         alert('Annonce créée avec succès');
+        console.log(annonce);
         this.router.navigate(['/']);
       });
     }
   }
-}

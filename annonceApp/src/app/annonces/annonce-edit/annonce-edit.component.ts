@@ -20,12 +20,12 @@ export class AnnonceEditComponent implements OnInit {
     private annonceService: AnnonceService,
     private router: Router,
     private dialogRef: MatDialogRef<AnnonceEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number }   // ✅ bonne syntaxe
+    @Inject(MAT_DIALOG_DATA) public data: { annonces:Annonce}   // ✅ bonne syntaxe
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      titre: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       description: [''],
       prix: [null, [Validators.required, Validators.min(1)]],
       categorie: ['', Validators.required],
@@ -34,9 +34,7 @@ export class AnnonceEditComponent implements OnInit {
       telephone: [''],
       active: [true]
     });
-
-    // récupérer l'id depuis le dialog
-    this.annonceId = this.data?.id;
+this.annonceId = this.data.annonces.id;
     console.log(this.data)
 
     if (this.annonceId) {
@@ -50,7 +48,7 @@ export class AnnonceEditComponent implements OnInit {
     if (this.form.invalid) return;
 
     const annonce: Annonce = this.form.value;
-
+console.log(this.annonceId,annonce)
     if (this.annonceId) {
       this.annonceService.update(this.annonceId, annonce).subscribe(() => {
         alert('Annonce mise à jour avec succès');

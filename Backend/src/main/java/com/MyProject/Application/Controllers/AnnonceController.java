@@ -90,10 +90,14 @@ public class AnnonceController {
 	
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void>  deleteAnnonce(@PathVariable Long id) {
-		
-		Annonce_service.deleteAnnonce(id);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<?>  deleteAnnonce(@PathVariable Long id) {
+		try{
+            Annonce_service.deleteAnnonce(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
 	}
 	
     @GetMapping("/search")

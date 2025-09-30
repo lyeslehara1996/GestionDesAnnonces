@@ -26,10 +26,40 @@ Une application **Spring Boot** permettant de gérer des annonces (immobilier, a
 - **Jacoco** (rapport de couverture)  
 
 ---
-
+# FrontEnd
 ## ⚙️ Installation & Exécution
 
 ###  Cloner le projet
 ```bash
 git clone https://github.com/<UTILISATEUR>/<REPO>.git
 cd <REPO>
+
+
+--- 
+# Annonces Frontend (Angular 14)
+
+Ce projet est le **frontend** d’une application CRUD de gestion d’annonces, développé avec **Angular 14** et **Angular Material**.  
+Il consomme une API REST exposée par un backend **Spring Boot**.
+
+---
+
+##  Prérequis
+
+Avant de commencer, assure-toi d’avoir installé :
+
+- [Node.js](https://nodejs.org/) **version 16.x** (recommandé pour Angular 14)  
+  👉 Vérifie avec :  
+
+node -v
+
+npm install -g @angular/cli@14
+
+git clone https://github.com/ton-projet/annonces-frontend.git
+cd annonces-frontend
+
+npm install
+
+## lancer l'application sur http://localhost:4200
+
+ng serve
+ 

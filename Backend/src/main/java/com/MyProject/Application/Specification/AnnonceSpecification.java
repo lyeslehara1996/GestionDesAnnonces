@@ -21,10 +21,10 @@ public class AnnonceSpecification {
                 prixMax != null ? cb.lessThanOrEqualTo(root.get("prix"), prixMax) : null;
     }
 	
-    public static Specification<Annence> hasTitre(String titre) {
+    public static Specification<Annence> hasTitle(String title) {
         return (root, query, cb) ->
-                (titre != null && !titre.isBlank())
-                        ? cb.like(cb.lower(root.get("titre")), "%" + titre.toLowerCase() + "%")
+                (title != null && !title.isBlank())
+                        ? cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%")
                         : null;
     }
     public static Specification<Annence> hasCategories(List<Categorie> categories) {
@@ -33,5 +33,7 @@ public class AnnonceSpecification {
                         ? root.get("categorie").in(categories)
                         : null;
     }
+
+
 }
 	

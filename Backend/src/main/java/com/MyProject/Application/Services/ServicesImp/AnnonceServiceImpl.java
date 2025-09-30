@@ -22,7 +22,7 @@ import jakarta.transaction.Transactional;
 
 @Service   
 @Transactional
-public class AnnonceServiceImpl implements AnnonceService{
+public class  AnnonceServiceImpl implements AnnonceService{
 
 	@Autowired
 	private AnnonceRepository annonceRepo;
@@ -85,7 +85,7 @@ public class AnnonceServiceImpl implements AnnonceService{
 
 
 	@Override
-	public Page<Annence> recherche(BigDecimal prixMin, BigDecimal prixMax, String titre, List<Categorie> categories,
+	public Page<Annence> recherche(BigDecimal prixMin, BigDecimal prixMax, String title, List<Categorie> categories,
 			int page, int size, String sortField, String direction) {
 		// TODO Auto-generated method stub
 
@@ -97,7 +97,7 @@ public class AnnonceServiceImpl implements AnnonceService{
         Specification<Annence> spec = Specification
                 .where(AnnonceSpecification.hasPrixMin(prixMin))
                 .and(AnnonceSpecification.hasPrixMax(prixMax))
-                .and(AnnonceSpecification.hasTitre(titre))
+                .and(AnnonceSpecification.hasTitle(title))
                 .and(AnnonceSpecification.hasCategories(categories));
 
         return annonceRepo.findAll(spec, pageable);

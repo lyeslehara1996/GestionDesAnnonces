@@ -101,18 +101,19 @@ public class AnnonceController {
 	}
 	
     @GetMapping("/search")
-    public Page<Annence> recherche(
+    public ResponseEntity<Page<Annence> > recherche(
             @RequestParam(required = false) BigDecimal prixMin,
             @RequestParam(required = false) BigDecimal prixMax,
-            @RequestParam(required = false) String titre,
+            @RequestParam(required = false) String title,
             @RequestParam(required = false) List<Categorie> categories,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "dateCreation") String sort,
             @RequestParam(defaultValue = "desc") String direction
     ) {
-        return Annonce_service.recherche(prixMin, prixMax, titre, categories, page, size, sort, direction);
+        return new ResponseEntity<>(Annonce_service.recherche(prixMin, prixMax, title, categories, page, size, sort, direction), HttpStatus.OK);
     }
+
 
 	
 }

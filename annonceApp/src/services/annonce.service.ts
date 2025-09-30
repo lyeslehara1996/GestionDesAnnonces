@@ -16,6 +16,14 @@ export interface Annonce {
 
 }
 
+export interface Page<T> {
+  content: T[];
+  totalElements: number;
+  totalPages: number;
+  number: number; // numéro de page
+  size: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,21 +54,29 @@ private ApiUrl= "http://localhost:8085/api/annonces";
     return this.http.delete<void>(`${this.ApiUrl}/${id}`);
   }
 
-  search(filters: any, page = 0, size = 10, sort = 'dateCreation', direction = 'desc'): Observable<any> {
+  searchAnnonces(
+    page: number,
+    size: number,
+    sort: string,
+    direction: string,
+    filters?: { prixMin?: number; prixMax?: number; titre?: string; categories?: string[] }
+  ): Observable<Page<Annonce>> {
     let params = new HttpParams()
       .set('page', page)
       .set('size', size)
       .set('sort', sort)
       .set('direction', direction);
 
-    Object.keys(filters).forEach(key => {
-      if (filters[key] !== null && filters[key] !== undefined && filters[key] !== '') {
-        params = params.set(key, filters[key]);
-      }
-    });
+    if (filters?.prixMin) params = params.set('prixMin', filters.prixMin);
+    if (filters?.prixMax) params = params.set('prixMax', filters.prixMax);
+    if (filters?.titre) params = params.set('titre', filters.titre);
+    if (filters?.categories && filters.categories.length > 0) {
+      filters.categories.forEach(c => params = params.append('categories', c));
+    }
 
-    return this.http.get<any>(`${this.ApiUrl}/search`, { params });
+    return this.http.get<Page<Annonce>>(`${this.ApiUrl}/search`, { params });
   }
+
 }
 
 

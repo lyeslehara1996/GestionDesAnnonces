@@ -19,7 +19,7 @@ public interface AnnonceService {
 	
 	public Page<Annence> recherche(BigDecimal prixMin,
             BigDecimal prixMax,
-            String titre,
+            String title,
             List<Categorie> categories,
             int page,
             int size,

@@ -1,12 +1,12 @@
-package com.MyProject.Application.Controllers;
+package com.MyProject.Application.controllers;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.MyProject.Application.Entities.Annence;
+import com.MyProject.Application.entities.Annence;
 import com.MyProject.Application.Enum.Categorie;
-import com.MyProject.Application.Services.AnnonceService;
+import com.MyProject.Application.services.AnnonceService;
 
 import jakarta.validation.Valid;
 
@@ -35,7 +35,8 @@ public class AnnonceController {
 	public AnnonceController(AnnonceService annonceService) {
         this.Annonce_service = annonceService;
     }
-	
+
+    @PreAuthorize("hasRole('USER')")
 	@GetMapping
 	public ResponseEntity<? > getAllAnnonce(){
         try{
@@ -49,6 +50,7 @@ public class AnnonceController {
 	
 	
 	@GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> getAnnonceById(@PathVariable Long id){
 		try{
             return new ResponseEntity<>(Annonce_service.findAnnonceByID(id), HttpStatus.OK) ;
@@ -62,7 +64,8 @@ public class AnnonceController {
 	
 	
 	@PostMapping
-	public ResponseEntity<?> createAnnence(@Valid @RequestBody Annence annonce) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> createAnnence(@Valid @RequestBody Annence annonce) {
 
         try{
             Annence savedAnnonce = Annonce_service.saveAnnonce(annonce);
@@ -75,7 +78,8 @@ public class AnnonceController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateAnnence(@PathVariable Long id,@Valid @RequestBody Annence annonce) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> updateAnnence(@PathVariable Long id,@Valid @RequestBody Annence annonce) {
 	try{
         return new ResponseEntity<>(Annonce_service.updateAnnonce(id, annonce),HttpStatus.OK);
     }catch (Exception e){

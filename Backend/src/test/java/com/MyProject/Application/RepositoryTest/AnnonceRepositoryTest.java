@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.MyProject.Application.Entities.Annence;
+import com.MyProject.Application.entities.Annence;
 import com.MyProject.Application.Enum.Categorie;
-import com.MyProject.Application.Repository.AnnonceRepository;
+import com.MyProject.Application.repository.AnnonceRepository;
 
 @DataJpaTest
 public class AnnonceRepositoryTest {

@@ -1,4 +1,4 @@
-package com.MyProject.Application.Specification;
+package com.MyProject.Application.specification;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
-import com.MyProject.Application.Entities.Annence;
+import com.MyProject.Application.entities.Annence;
 import com.MyProject.Application.Enum.Categorie;
 
 @Component

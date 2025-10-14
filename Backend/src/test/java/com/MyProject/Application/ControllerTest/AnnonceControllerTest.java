@@ -10,10 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.MyProject.Application.Entities.Annence;
+import com.MyProject.Application.entities.Annence;
 import com.MyProject.Application.Enum.Categorie;
-import com.MyProject.Application.Repository.AnnonceRepository;
-import com.MyProject.Application.Services.AnnonceService;
+import com.MyProject.Application.repository.AnnonceRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 

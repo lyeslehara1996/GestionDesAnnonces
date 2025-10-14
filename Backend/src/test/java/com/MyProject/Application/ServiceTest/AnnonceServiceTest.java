@@ -14,11 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.MyProject.Application.Entities.Annence;
+import com.MyProject.Application.entities.Annence;
 import com.MyProject.Application.Enum.Categorie;
-import com.MyProject.Application.Repository.AnnonceRepository;
-import com.MyProject.Application.Services.AnnonceService;
-import com.MyProject.Application.Services.ServicesImp.AnnonceServiceImpl;
+import com.MyProject.Application.repository.AnnonceRepository;
+import com.MyProject.Application.services.ServicesImp.AnnonceServiceImpl;
 
 public class AnnonceServiceTest {
 

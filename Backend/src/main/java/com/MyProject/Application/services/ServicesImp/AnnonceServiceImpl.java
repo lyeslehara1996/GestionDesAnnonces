@@ -1,8 +1,7 @@
-package com.MyProject.Application.Services.ServicesImp;
+package com.MyProject.Application.services.ServicesImp;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,11 +11,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.MyProject.Application.Entities.Annence;
+import com.MyProject.Application.entities.Annence;
 import com.MyProject.Application.Enum.Categorie;
-import com.MyProject.Application.Repository.AnnonceRepository;
-import com.MyProject.Application.Services.AnnonceService;
-import com.MyProject.Application.Specification.AnnonceSpecification;
+import com.MyProject.Application.repository.AnnonceRepository;
+import com.MyProject.Application.services.AnnonceService;
+import com.MyProject.Application.specification.AnnonceSpecification;
 
 import jakarta.transaction.Transactional;
 

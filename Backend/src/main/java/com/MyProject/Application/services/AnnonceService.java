@@ -1,12 +1,11 @@
-package com.MyProject.Application.Services;
+package com.MyProject.Application.services;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 
-import com.MyProject.Application.Entities.Annence;
+import com.MyProject.Application.entities.Annence;
 import com.MyProject.Application.Enum.Categorie;
 
 public interface AnnonceService {

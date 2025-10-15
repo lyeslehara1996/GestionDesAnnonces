@@ -36,7 +36,6 @@ public class AnnonceController {
         this.Annonce_service = annonceService;
     }
 
-    @PreAuthorize("hasRole('USER')")
 	@GetMapping
 	public ResponseEntity<? > getAllAnnonce(){
         try{
@@ -50,7 +49,6 @@ public class AnnonceController {
 	
 	
 	@GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> getAnnonceById(@PathVariable Long id){
 		try{
             return new ResponseEntity<>(Annonce_service.findAnnonceByID(id), HttpStatus.OK) ;
@@ -64,7 +62,6 @@ public class AnnonceController {
 	
 	
 	@PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createAnnence(@Valid @RequestBody Annence annonce) {
 
         try{
@@ -78,7 +75,6 @@ public class AnnonceController {
 	}
 	
 	@PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateAnnence(@PathVariable Long id,@Valid @RequestBody Annence annonce) {
 	try{
         return new ResponseEntity<>(Annonce_service.updateAnnonce(id, annonce),HttpStatus.OK);

@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -22,6 +22,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AnnonceEditComponent } from './annonces/annonce-edit/annonce-edit.component';
+import { KeycloakService } from '../services/keycloak.service';
+import { AuthInterceptor } from 'src/Intercepteur/auth.interceptor';
+
+export function initializeKeycloak(keycloak: KeycloakService): () => Promise<void> {
+  return () => keycloak.init();
+}
+
 
 @NgModule({
   declarations: [
@@ -53,7 +60,22 @@ import { AnnonceEditComponent } from './annonces/annonce-edit/annonce-edit.compo
     MatDialogModule,
     MatFormFieldModule,
   ],
-  providers: [],
+  providers: [  
+      KeycloakService,
+    KeycloakService,
+  {
+    provide: APP_INITIALIZER,
+    useFactory: initializeKeycloak,
+    multi: true,
+    deps: [KeycloakService]
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }
+
+   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

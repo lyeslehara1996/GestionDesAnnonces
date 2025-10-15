@@ -4,9 +4,12 @@
   
   <span>Gestion des annonces</span>
   <span class="example-spacer"></span>
-<button mat-raised-button (click)="OnAddAnnonces()">
+<button mat-raised-button *ngIf="isAdmin()" (click)="OnAddAnnonces()">
     ajouter une annance 
 </button>
+ <div *ngIf="isLoggedIn()" class="user-info">
+    <button  mat-raised-button (click)="logout()">Se déconnecter</button>
+  </div>
 
 </mat-toolbar>
 

@@ -55,27 +55,28 @@ private ApiUrl= "http://localhost:8085/api/annonces";
   }
 
   searchAnnonces(
-    page: number,
-    size: number,
-    sort: string,
-    direction: string,
-    filters?: { prixMin?: number; prixMax?: number; titre?: string; categories?: string[] }
-  ): Observable<Page<Annonce>> {
-    let params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-      .set('sort', sort)
-      .set('direction', direction);
+  page: number,
+  size: number,
+  sort: string,
+  direction: string,
+  filters?: { prixMin?: number; prixMax?: number; title?: string; categories?: string[] }
+): Observable<Page<Annonce>> {
+  let params = new HttpParams()
+    .set('page', page)
+    .set('size', size)
+    .set('sort', sort)
+    .set('direction', direction);
 
-    if (filters?.prixMin) params = params.set('prixMin', filters.prixMin);
-    if (filters?.prixMax) params = params.set('prixMax', filters.prixMax);
-    if (filters?.titre) params = params.set('titre', filters.titre);
-    if (filters?.categories && filters.categories.length > 0) {
-      filters.categories.forEach(c => params = params.append('categories', c));
-    }
-
-    return this.http.get<Page<Annonce>>(`${this.ApiUrl}/search`, { params });
+  if (filters?.prixMin) params = params.set('prixMin', filters.prixMin);
+  if (filters?.prixMax) params = params.set('prixMax', filters.prixMax);
+  if (filters?.title) params = params.set('title', filters.title); // ✅ corriger ici
+  if (filters?.categories && filters.categories.length > 0) {
+    filters.categories.forEach(c => params = params.append('categories', c));
   }
+
+  return this.http.get<Page<Annonce>>(`${this.ApiUrl}/search`, { params });
+}
+
 
 }
 

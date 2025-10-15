@@ -44,7 +44,7 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
 
     private Collection<? extends GrantedAuthority> extractRessourceRoles(Jwt jwt) {
         Set<GrantedAuthority> authorities = new HashSet<>();
-
+//Role de realm
         Map<String, Object> resourceAccess = jwt.getClaim("resource_access");
         if (resourceAccess != null) {
             Map<String, Object> resource = (Map<String, Object>) resourceAccess.get(jwtConverterProperties.getRessourceId());
@@ -58,6 +58,7 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
             }
         }
 
+        //Role de client
         Map<String, Object> realmAccess = jwt.getClaim("realm_access");
         if (realmAccess != null) {
             Collection<String> realmRoles = (Collection<String>) realmAccess.get("roles");
@@ -70,8 +71,6 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
 
         return authorities;
     }
-
-
     private String getPrincipalClaimName(Jwt jwt) {
     String claimName = JWTClaimNames.SUBJECT;
 

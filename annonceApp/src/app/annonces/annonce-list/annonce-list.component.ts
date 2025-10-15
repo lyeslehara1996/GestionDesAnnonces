@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AnnonceEditComponent } from '../annonce-edit/annonce-edit.component';
 import { Router } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { KeycloakService } from 'src/services/keycloak.service';
 
 @Component({
   selector: 'app-annonce-list',
@@ -40,7 +41,8 @@ export class AnnonceListComponent implements OnInit {
     private annonceService: AnnonceService,
     private _dialog: MatDialog,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private keycloakService: KeycloakService
   ) {}
 
   ngOnInit(): void {
@@ -53,30 +55,22 @@ export class AnnonceListComponent implements OnInit {
     this.loadAnnonces();
   }
 
-  loadAnnonces(): void {
-    const filters = {
-      title: this.filterForm.value.title,
-      prixMin: this.filterForm.value.prixMin,
-      prixMax: this.filterForm.value.prixMax,
-      categories: this.filterForm.value.categories
-    };
+loadAnnonces(): void {
+  this.annonceService.getAll().subscribe({
+    next: (data: Annonce[]) => {
+      this.annonces = data;
+      this.totalElements = data.length;
+    },
+    error: (err) => {
+      this.errorMessage = err.error;
+      console.error('Erreur de récupération des annonces :', err);
+    }
+  });
+}
+isUser(): boolean {
+  return this.keycloakService.hasRole('user');
+}
 
-    this.annonceService.searchAnnonces(
-      this.pageIndex,
-      this.pageSize,
-      this.sort,
-      this.direction,
-      filters
-    ).subscribe({
-      next: (data: Page<Annonce>) => {
-        this.annonces = data.content;
-        this.totalElements = data.totalElements;
-      },
-      error: (err) => {
-        this.errorMessage = err.error;
-      }
-    });
-  }
 
   onPageChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;

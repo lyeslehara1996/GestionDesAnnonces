@@ -5,7 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AnnonceEditComponent } from '../annonce-edit/annonce-edit.component';
 import { Router } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { KeycloakService } from 'src/services/keycloak.service';
+import { AuthService } from 'src/services/auth.service';
+// import { KeycloakService } from 'src/services/keycloak.service';
 
 @Component({
   selector: 'app-annonce-list',
@@ -42,7 +43,8 @@ export class AnnonceListComponent implements OnInit {
     private _dialog: MatDialog,
     private router: Router,
     private fb: FormBuilder,
-    private keycloakService: KeycloakService
+    // private keycloakService: KeycloakService
+    private authService:AuthService
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +70,7 @@ loadAnnonces(): void {
   });
 }
 isUser(): boolean {
-  return this.keycloakService.hasRole('user');
+  return this.authService.hasRole('user');
 }
 
 

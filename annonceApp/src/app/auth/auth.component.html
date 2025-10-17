@@ -1,0 +1,42 @@
+<!-- 
+
+<ng-container mat-dialog-title>
+  <h1>Se connecter</h1>
+</ng-container>
+
+<mat-dialog-content>
+    <div class="row">
+        
+    </div>
+  <mat-card>
+
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <mat-form-field class="full-width">
+        <mat-label>Email or username</mat-label>
+        <input matInput formControlName="identifier" required />
+        
+        <mat-error *ngIf="form.controls['identifier'].hasError('required')">
+          Le titre est obligatoire
+        </mat-error>
+      </mat-form-field>
+
+        <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required />
+        
+        <mat-error *ngIf="form.controls['password'].hasError('required')">
+          Le mot de passe  est obligatoire
+        </mat-error>
+      </mat-form-field>
+
+
+  <mat-dialog-actions aligne="end">
+  <button mat-raised-button color="primary"  type="submit" [disabled]="form.invalid">Se Conecter</button>
+   <a routerLink="/forgot-password">Mot de passe oublié ?</a>
+
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+</mat-dialog-actions>
+    </form>
+  </mat-card>
+</mat-dialog-content>
+ -->

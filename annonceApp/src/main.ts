@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/AppModule';
 import { environment } from './environments/environment';
-import { KeycloakService } from './services/keycloak.service';
+// import { KeycloakService } from './services/keycloak.service';
 
 
 if (environment.production) {

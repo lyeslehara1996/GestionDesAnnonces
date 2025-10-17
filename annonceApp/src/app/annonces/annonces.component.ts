@@ -4,7 +4,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { Router } from '@angular/router';
-import { KeycloakService } from 'src/services/keycloak.service';
+import { AuthService } from 'src/services/auth.service';
+// import { KeycloakService } from 'src/services/keycloak.service';
 @Component({
   selector: 'app-annonces',
   templateUrl: './annonces.component.html',
@@ -13,16 +14,16 @@ import { KeycloakService } from 'src/services/keycloak.service';
 export class AnnoncesComponent implements OnInit {
 user: { username?: string; firstName?: string; lastName?: string; email?: string } | null = null;
 
-  constructor( private router:Router, private keycloakService: KeycloakService) { }
+  constructor( private router:Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-      if (this.keycloakService.isLoggedIn()) {
-      this.user = this.keycloakService.getUserProfile();
+      if (this.authService.isLoggedIn()) {
+      this.user = this.authService.getUserProfile();
     }
   }
 
   isAdmin(): boolean {
-  return this.keycloakService.hasRole('admin');
+  return this.authService.hasRole('admin');
 }
 
 
@@ -32,10 +33,10 @@ user: { username?: string; firstName?: string; lastName?: string; email?: string
   }
 
    logout() {
-    this.keycloakService.logout();
+    this.authService.logout();
   }
 
   isLoggedIn(): boolean {
-    return this.keycloakService.isLoggedIn();
+    return this.authService.isLoggedIn();
   }
 }

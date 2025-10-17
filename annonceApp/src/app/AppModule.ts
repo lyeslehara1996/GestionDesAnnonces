@@ -22,13 +22,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AnnonceEditComponent } from './annonces/annonce-edit/annonce-edit.component';
-import { KeycloakService } from '../services/keycloak.service';
+// import { KeycloakService } from '../services/keycloak.service';
 import { AuthInterceptor } from 'src/Intercepteur/auth.interceptor';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { AuthService } from 'src/services/auth.service';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
-export function initializeKeycloak(keycloak: KeycloakService): () => Promise<void> {
-  return () => keycloak.init();
+// export function initializeKeycloak(keycloak: KeycloakService): () => Promise<void> {
+//   return () => keycloak.init();
+// }
+export function initAuth(authService: AuthService): () => Promise<void> {
+  return () => authService.init();
 }
-
 
 @NgModule({
   declarations: [
@@ -39,15 +44,21 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<voi
     AnnonceDetailComponent,
     AnnonceRechercheComponent,
     AnnonceEditComponent, 
+    ForbiddenComponent
   ],
   imports: [
+    
     BrowserModule,
-    AppRoutingModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:8081/api'],
+        sendAccessToken: true,
+      },
+    }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-
-    // Angular Material
+    AppRoutingModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -61,19 +72,18 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<voi
     MatFormFieldModule,
   ],
   providers: [  
-      KeycloakService,
-    KeycloakService,
-  {
-    provide: APP_INITIALIZER,
-    useFactory: initializeKeycloak,
-    multi: true,
-    deps: [KeycloakService]
-  },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }
+   AuthService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initAuth,
+      multi: true,
+      deps: [AuthService],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
 
    ],
   bootstrap: [AppComponent],
